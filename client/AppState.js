@@ -1,59 +1,62 @@
 import {Meteor} from 'meteor/meteor';
 import {extendObservable, action, useStrict, toJS, map} from 'mobx';
-import ReactiveDataManager from './ReactiveDataManager'
 
 export default class AppState {
     constructor() {
         // state can only be updated through actions
         useStrict(true);
 
-        /*MOBX STATE*/
-        extendObservable(this, {
-            examplesLoading: false,
-            examples: [],
-            // updates examples with fresh data
-            updateExamples: action((newExamples) => {
-                this.examples = newExamples;
-            }),
-            setExamplesLoading: action((boolean) => {
-                this.examplesLoading = boolean;
-            }),
-            showDependentsMap: map(),
-            toggleShowDependents: action((exampleId) => {
-                if (this.showDependentsMap.get(exampleId)) {
-                    this.showDependentsMap.set(exampleId, false);
-                }
-                else {
-                    this.showDependentsMap.set(exampleId, true);
-                }
-            }),
-            dependentFilter: [],
-            addDependentFilterValue: action((exampleId) => {
-                let filterArray = toJS(this.dependentFilter);
-                if (!filterArray.includes(exampleId)) {
-                    filterArray.push(exampleId);
-                    this.dependentFilter= filterArray;
-                    this.showDependentsMap.set(exampleId, true);
-                }
+        /* stateMachine: ["initialised", "dataLoading", "dataLoadFailed", "dataLoaded", "connectingToAPI", "connectFailed", "chatBotConnected", "results"] */
 
+            /*MOBX STATE*/
+        extendObservable(this, {
+            stateMachine: "initialised",
+            providers: [],
+            apis: [],
+            chatHistory: [],
+            updateChatHistory: action((author, newMessage, context) => {
+                this.chatHistory = this.chatHistory.concat([]).push({author: author, message: newMessage, context: context});
             }),
-            dependents: [],
-            // updates examples with fresh data
-            updateDependents: action((newDependents) => {
-                this.dependents = newDependents;
+            updateProviders: action((newProviders) => {
+                this.providers = newProviders;
             }),
-            setDependentsLoading: action((boolean) => {
-                this.dependentsLoading = boolean;
+            setStateMachine: action((state) => {
+                this.stateMachine = state;
+            }),
+            updateAPIs: action((newAPIs) => {
+                this.apis = newAPIs;
             })
         });
 
         /*FUNCTIONS TO CALL METEOR METHODS*/
         // calls Meteor to add a new example
-        this.addExample = () =>{
-            Meteor.call("addExample");
+        this.getData = () =>{
+            this.setStateMachine("dataLoading");
+            Meteor.call("getData", (error, result) => {
+                if  (error) {
+                    console.log(error.message);
+                    this.setStateMachine("dataLoadFailed");
+                }
+                else {
+                    this.updateProviders(result.providers);
+                    this.updateAPIs(result.apis);
+                    this.setStateMachine("dataLoaded");
+                }
+            });
         };
 
-        /*REACTIVE DATA MANAGEMENT*/
-        this.dataManager = new ReactiveDataManager(this);
+        this.connectToAPI = () => {
+            this.setStateMachine("dataLoading");
+            Meteor.call("connectToBot", (error, result) => {
+                if  (error) {
+                    console.log(error.message);
+                    this.setStateMachine("connectFailed");
+                }
+                else {
+                    this.updateChatHistory("APILink", result.message, result.context);
+                    this.setStateMachine("chatBotConnected");
+                }
+            });
+        }
     }
 }

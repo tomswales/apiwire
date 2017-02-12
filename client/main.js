@@ -8,5 +8,5 @@ import renderRoutes from '/imports/startup/client/routes.jsx'
 import AppState from './AppState'
 
 let state = new AppState();
-console.log("Here");
+state.getData();
 ReactDOM.render(renderRoutes(state), document.getElementById("app"));
