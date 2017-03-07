@@ -32,9 +32,14 @@ APIs.schema = new SimpleSchema({
         label: "Name",
         optional: true
     },
-    types: {
+    category: {
+        type: String,
+        label: "Category",
+        optional: true
+    },
+    features: {
         type: [String],
-        label: "Types",
+        label: "Features",
         optional: false
     },
     industries: {
@@ -45,6 +50,18 @@ APIs.schema = new SimpleSchema({
     availability: {
         type: String,
         label: "Availability",
+        optional: false
+    }
+    ,
+    icon_url: {
+        type: String,
+        label: "Icon URL",
+        optional: true
+    }
+    ,
+    api_homepage: {
+        type: String,
+        label: "API Homepage",
         optional: false
     }
 });

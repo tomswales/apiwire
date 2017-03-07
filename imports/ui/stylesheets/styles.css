@@ -1,31 +1,31 @@
 /*Overall app styling*/
-body, html {
+body {
     width: 100%;
-    height:100vh;
+    min-height:100vh;
     background: #232323;
     font-family: 'Lato', sans-serif;
     margin: 0px;
     padding: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 #app {
-    width: inherit;
-    height: inherit;
+    flex: 1 0 auto;
 }
 
 .app-container{
-    width: inherit;
-    height:inherit;
+    width: 100%;
+    min-height:100vh;
     display: flex;
     flex-direction: column;
 }
 
 .content-container{
-    flex: 1;
+    flex: 1 0 auto;
     margin-top: 20px;
     margin-left: 5%;
     margin-right: 5%;
-    min-width: 450px;
 }
 
 h1 {
@@ -47,16 +47,18 @@ p {
     margin: 0px;
 }
 
+::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.4em;
+    color: darkgray;
+}
+
 h1, h2, h3, h4, a, p, li {
     color: white;
 }
 
 button, textarea {
     font-size: 1em;
-}
-
-button {
-    width: 200px;
 }
 
 .description-container {
@@ -73,6 +75,11 @@ hr {
 }
 
 /*Title bar*/
+
+.site-logo {
+    width: 200px;
+    margin-top: 20px;
+}
 .title-container{
     display: flex;
     flex-direction: row;
@@ -92,8 +99,29 @@ hr {
     to   { opacity: 1; }
 }
 
+.small-deco{
+    flex: 1;
+    margin-right: 50px;
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAL0lEQVQoU2NkYGD4zwABjFAagwJJEKUIlwFwcXQrsJpKliKsVuP0EbKHKFYEtxoAbNoGClUYgM0AAAAASUVORK5CYII=);
+}
+
 .logo-container {
-    margin-right: 10px;
+    margin-right: 50px;
+    text-align: center;
+}
+
+.decorative {
+    flex: 1;
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAL0lEQVQoU2NkYGD4zwABjFAagwJJEKUIlwFwcXQrsJpKliKsVuP0EbKHKFYEtxoAbNoGClUYgM0AAAAASUVORK5CYII=);
+    margin-left: 10px;
+}
+
+.section-title {
+    margin-bottom: 5px;
+}
+
+.hide-arrow:hover {
+    cursor: pointer;
 }
 
 /*Chatbot*/
@@ -131,6 +159,7 @@ input {
     width: 100%;
     resize: vertical;
     margin-bottom: 10px;
+    min-height: 50px;
 }
 
 .chat-message-container{
@@ -151,7 +180,7 @@ input {
     color: white;
     flex: 1;
     overflow-y: scroll;
-    max-height: 600px;
+    max-height: 300px;
     margin-bottom: 10px;
 }
 
@@ -172,24 +201,26 @@ input {
     right: 0;
 }
 
+.chat-control-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-control-button {
+    flex: 1;
+    text-align: center;
+    display: inline-block;
+}
+
 /*Results*/
 .product-row {
     width: inherit;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-}
-
-@media screen and (min-width: 800px) {
-    .product-row {
-        flex-direction: row;
-        height: 150px;
-        margin-bottom: 10px;
-    }
-    .chatbox {
-        padding-left: 20%;
-        padding-right: 20%;
-    }
 }
 
 .product-box {
@@ -200,6 +231,16 @@ input {
     background-color: #3b4c68;
     max-width: 100%;
     min-height: 150px;
+    overflow: hidden;
+    position: relative;
+}
+
+.empty-box {
+    flex: 1;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    max-width: 100%;
+    max-height: 0px;
     overflow: hidden;
     position: relative;
 }
@@ -225,13 +266,18 @@ input {
 
 .select-row {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-bottom: 10px;
 }
 
 .select-item {
-    margin: 5px;
+    margin: 10px;
+}
+
+.drop-down {
+    width: 200px;
 }
 
 .select-label {
@@ -244,4 +290,25 @@ input {
     height: auto;
     background:#3b4c68;
     margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 800px) {
+    .product-row {
+        flex-direction: row;
+        height: 150px;
+        margin-bottom: 10px;
+    }
+    .chatbox {
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+    .chat-history {
+        max-height: 600px;
+    }
+    .site-logo {
+        width: 300px;
+    }
 }

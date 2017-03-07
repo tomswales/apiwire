@@ -31,6 +31,11 @@ Providers.schema = new SimpleSchema({
         label: "Homepage URL",
         optional: true
     },
+    icon_url: {
+        type: String,
+        label: "Icon URL",
+        optional: true
+    },
     status: {
         type: String,
         label: "Company status",
