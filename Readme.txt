@@ -1,13 +1,25 @@
-Project readme
+How to get it up and running:
 
-Required NPM packages:
+- install the necessary node modules found in package.json, using:
 
-meteor npm install --save babel-runtime mobx react react-dom react-router@next mobx-react
+meteor npm install --save [insert all module names here]
 
-Required Meteor packages:
+create a settings.json document in the root folder with the following information:
 
-meteor add aldeed:simple-schema static-html accounts-base check
+{
+  "public": {
 
-Remove these Meteor packages:
+  },
+  "private": {
+    "ibm_watson_conversation" : {
+              "url": "https://gateway.watsonplatform.net/conversation/api",
+              "username": "[Your IBM Watson Conversation Username]",
+              "password": "[Your IBM Watson Conversation Password]",
+              "workspace_id": "[Your IBM Watson Workspace ID]",
+              "version_date": "2017-02-12"
+          }
+  }
+}
 
-meteor remove insecure autopublish blaze-html-templates
+
+
