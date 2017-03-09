@@ -55,7 +55,7 @@ const App = observer(class App extends React.Component {
                     <hr/>
                 </div>
                 <div className="footer">
-                    <p className="footer-item">&copy; Copyright Tom Swales 2017</p>
+                    <p className="footer-item">Created by: Tom Swales 2017</p>
                     <a href="https://www.linkedin.com/in/tomswales/"  className="footer-item">Contact</a>
                 </div>
             </div>

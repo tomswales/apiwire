@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import Features from '../../api/features/features'
+import Categories from '../../api/categories/categories';
 import Providers from '../../api/providers/providers';
 import APIs from '../../api/apis/apis';
 
@@ -65,7 +67,8 @@ Meteor.startup(() => {
         });
         let two = Providers.insert({created: new Date(), name: "Google", hq: "United States", status: "Public",  icon_url: "logos/google.png", homepage: "https://www.google.com"}, (result) =>{
             let company_logo_two = Providers.findOne({_id: two}).icon_url;
-            APIs.insert({created: new Date(), providerId: two, name: "Cloud Vision API", category: "Visual_Recognition", features: ["identify_image_objects", "identify_video_objects", "text_recognition",  "recognise_face"], industries: ["all"], providerName: "Google", availability: "Public", icon_url: company_logo_two, api_homepage: "https://cloud.google.com/vision"});
+            APIs.insert({created: new Date(), providerId: two, name: "Cloud Vision API", category: "Visual_Recognition", features: ["identify_image_objects", "text_recognition",  "recognise_face"], industries: ["all"], providerName: "Google", availability: "Public", icon_url: company_logo_two, api_homepage: "https://cloud.google.com/vision"});
+            APIs.insert({created: new Date(), providerId: two, name: "Cloud Video Intelligence API", category: "Visual_Recognition", features: ["identify_video_objects"], industries: ["all"], providerName: "Google", availability: "Public", icon_url: company_logo_two, api_homepage: "https://cloud.google.com/video-intelligence/"});
             APIs.insert({created: new Date(), providerId: two, name: "Cloud Natural Language API", category: "Natural_Language_Processing", features: ["linguistic_analysis"], industries: ["all"], providerName: "Google", availability: "Public", icon_url: company_logo_two, api_homepage: "https://cloud.google.com/natural-language"});
             APIs.insert({created: new Date(), providerId: two, name: "Cloud Speech API", category: "Speech_Recognition", features: ["speech_to_text"], industries: ["all"], providerName: "Google", availability: "Public", icon_url: company_logo_two, api_homepage: "https://cloud.google.com/speech"});
             APIs.insert({created: new Date(), providerId: two, name: "Cloud Translation API", category: "Translation", features: ["translate_between_languages"], industries: ["all"], providerName: "Google", availability: "Public", icon_url: company_logo_two, api_homepage: "https://cloud.google.com/translate"});
