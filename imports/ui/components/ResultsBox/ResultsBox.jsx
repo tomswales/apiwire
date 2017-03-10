@@ -28,12 +28,12 @@ const ResultsBox = observer(class ResultsBox extends React.Component {
             if (this.props.state.sortCriterion) {
                 if (this.props.state.sortCriterion == "provider_name") {
                     apis.sort((a, b) => {
-                        return a.providerName > b.providerName;
+                        return a.providerName.toLowerCase().localeCompare(b.providerName.toLowerCase()) || 0;
                     })
                 }
                 else if (this.props.state.sortCriterion == "api_name") {
                     apis.sort((a, b) => {
-                        return a.name > b.name;
+                        return a.name.toLowerCase().localeCompare(b.name.toLowerCase()) || 0;
                     })
                 }
             }

@@ -11,7 +11,7 @@ if (Meteor.isServer) {
     Meteor.methods({
         getData: function () {
             const providers = Providers.find({}, {sort: {name: 1}}).fetch();
-            const apis = APIs.find({}, {sort: {name: 1}}).fetch();
+            const apis = APIs.find({}, {sort: {providerName: 1}}).fetch();
             const features = Features.find({}, {sort: {text: 1}}).fetch();
             const categories = Categories.find({}, {sort: {text: 1}}).fetch();
             if (!providers || !apis) {
