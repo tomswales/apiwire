@@ -4,7 +4,8 @@ import APIs from './apis/apis.js';
 import Features from './features/features';
 import Categories from './categories/categories';
 import ConversationV1 from 'watson-developer-cloud/conversation/v1';
-import Future from 'fibers/future'
+import Future from 'fibers/future';
+import { check } from 'meteor/check';
 
 if (Meteor.isServer) {
     Meteor.methods({
@@ -40,6 +41,8 @@ if (Meteor.isServer) {
             return future.wait();
         },
         sendMessageToAPI: function(message, context) {
+            check(message, String);
+            check(context, Object);
             let conversation = new ConversationV1({
                 username: Meteor.settings.private.ibm_watson_conversation.username,
                 password: Meteor.settings.private.ibm_watson_conversation.password,
